@@ -35,15 +35,19 @@ class HomeController extends Controller
             "",
             "id",
             "name",
-            "email",
-            "address"
+            "description",
+            "address",
+            "lat",
+            "lng"
         );
 
         // local variables for POST variables for searching columns
         $id="";
         $name="";
-        $email="";
+        $description="";
         $address="";
+        $lat="";
+        $lng="";
 
         // Assigning POST values to local variables
 
@@ -53,13 +57,17 @@ class HomeController extends Controller
         if($request->has('name') && $request->get('name')!=null)
             $name=trim($request->get('name'));
 
-        if($request->has('email') && $request->get('email')!=null)
-            $email=trim($request->get('email'));
+        if($request->has('description') && $request->get('description')!=null)
+            $description=trim($request->get('description'));
 
         if($request->has('address') && $request->get('address')!=null)
             $address=trim($request->get('address'));
 
+        if($request->has('lat') && $request->get('lat')!=null)
+            $lat=trim($request->get('lat'));
 
+        if($request->has('lng') && $request->get('lng')!=null)
+            $lng=trim($request->get('lng'));
 
 
         $iDisplayLength = intval($request->get('length'));  // getting rows per page value for paging
@@ -71,7 +79,7 @@ class HomeController extends Controller
         $query_order_direction=$query_order_array[0]['dir'];
 
         // Building query for search
-        $query = DB::table('users');
+        $query = DB::table('location');
         //$query->leftjoin('advertiser_types','advertiser_types.id','=','advertisers.type_id');
        // $query->leftjoin('advertiser_widgets_advertisers','advertiser_widgets_advertisers.advertiser_id','=','advertisers.id');
         //$query->leftjoin('advertiser_widgets','advertiser_widgets.id','=','advertiser_widgets_advertisers.advertiser_widget_id');
@@ -92,11 +100,17 @@ class HomeController extends Controller
         if($name!=null)
             $query->where('name','LIKE','%'.$name.'%');
 
-        if($email!=null)
-            $query->where('email','=',$email);
+        if($description!=null)
+            $query->where('description','=',$description);
 
         if($address!=null)
             $query->where('address','=',$address);
+
+        if($lat!=null)
+            $query->where('lat','=',$lat);
+
+        if($lng!=null)
+            $query->where('lng','=',$lng);
 
 
         //$query->groupBy('users.id');
@@ -143,8 +157,10 @@ class HomeController extends Controller
             $records['data'][$i][]='<input type="checkbox" name="id[]" value="'.$advertiser->id.'">';
             $records['data'][$i][]=$advertiser->id;
             $records['data'][$i][]=$advertiser->name;
-            $records['data'][$i][]=$advertiser->email;
+            $records['data'][$i][]=$advertiser->description;
             $records['data'][$i][]=$advertiser->address;
+            $records['data'][$i][]=$advertiser->lat;
+            $records['data'][$i][]=$advertiser->lng;
             $records['data'][$i][]='
                 <div class="btn-group" role="group">
                     <a href="'.url('/edit', [$advertiser->id]).'" class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i></a>

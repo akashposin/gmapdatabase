@@ -22,6 +22,7 @@
         };
         var rows_per_page='{{ Config::get('custom.rows_per_page')}}';
     </script>
+    <script src="{{ URL::asset('assets/admin/pages/scripts/map.js')}}"></script>
 
 </head>
 <!-- END HEAD -->

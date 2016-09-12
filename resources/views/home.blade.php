@@ -22,6 +22,7 @@
 <!-- BEGIN PAGE CONTENT-->
     <div class="row">
         <div class="col-md-12">
+            <div id="map"></div>
             <!-- Begin: life time stats -->
             <div class="portlet light">
                 <div class="portlet-title">
@@ -93,10 +94,16 @@
                                     NAME
                                 </th>
                                 <th width="10%">
-                                    EMAIL
+                                    DESCRIPTION
                                 </th>
                                 <th width="10%">
                                     ADDRESS
+                                </th>
+                                <th width="10%">
+                                    LATITUDE
+                                </th>
+                                <th width="10%">
+                                    LONGITUDE
                                 </th>
                                 <th width="10%">
                                     Actions
@@ -112,10 +119,18 @@
                                     <input type="text" class="form-control form-filter input-sm" name="name">
                                 </td>
                                 <td>
-                                    <input type="text" class="form-control form-filter input-sm" name="email">
+                                    <input type="text" class="form-control form-filter input-sm" name="desc">
                                 </td>
                                 <td>
                                     <input type="text" class="form-control form-filter input-sm" name="address">
+
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control form-filter input-sm" name="lat">
+
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control form-filter input-sm" name="lng">
 
                                 </td>
                                 <td>
@@ -161,6 +176,9 @@
         var url_upload_ajax='{{url('datatable/upload')}}'
     </script>
     <script src="{{ URL::asset('assets/admin/pages/scripts/table-ajax.js')}}"></script>
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC2O4SDaKE4Ag67QlN8k0yTBDdFnW-DXmU&callback=initialize">
+    </script>
 
 
 @stop
