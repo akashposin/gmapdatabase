@@ -19,3 +19,4 @@ Route::auth();
 
 Route::get('/home', 'HomeController@index');
 Route::post('home/show', 'HomeController@show');
+Route::get('home/googlemap', 'HomeController@googlemap');
