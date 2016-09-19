@@ -180,8 +180,9 @@ class HomeController extends Controller
         return $records;
     }
 
+
+    // fetch map data with latitude longitude
     public function googlemap(){
-//        echo "it work";
         $data=DB::table('location')->get();
 
         echo json_encode($data);
