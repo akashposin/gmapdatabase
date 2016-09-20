@@ -7,7 +7,8 @@ use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
-
+use App\Http\Controllers\Auth\Input;
+use Illuminate\Support\Facades\Auth;
 class AuthController extends Controller
 {
     /*
@@ -28,7 +29,7 @@ class AuthController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/';
+    protected $redirectTo = '/home';
 
     /**
      * Create a new authentication controller instance.
@@ -71,4 +72,6 @@ class AuthController extends Controller
             'address' => $data['address'],
         ]);
     }
+
+
 }

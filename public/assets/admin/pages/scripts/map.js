@@ -50,10 +50,12 @@ function getlocations() {
 
                         // console.log(temp.name);
                         // console.log(key);
-                        infowindow.setContent('<b><h3 style="text-align: center">'+this.info.name+'</h3></b>'
-                            +'<b>Name :</b> '+this.info.name+'<br>'
-                            +'<b>Description :</b> '+this.info.description+'<br>'
-                            +'<b>Address :</b>'+this.info.address);
+                        infowindow.setContent('<b><h3 style="text-align: center; color: blueviolet">'+this.info.name+'</h3></b>'
+                            +'<b style="color: orangered">Name :</b> '+this.info.name+'<br>'
+                            +'<b style="color: orangered">Description :</b> '+this.info.description+'<br>'
+                            +'<b style="color: orangered">Address :</b>'+this.info.address+'<br>'
+                            +'<b style="color: orangered">Latitude :</b>'+this.info.lat+'<br>'
+                            +'<b style="color: orangered">Longitude :</b>'+this.info.lng);
                         infowindow.open(map, this);
 
                 });
@@ -78,13 +80,3 @@ function initialize() {
 
     getlocations();
     }
-// var contentString = '<form method="post">'+'<div id="content">'+
-//     '<div id="siteNotice">'+
-//     '</div>'+
-//     '<h1 id="firstHeading" class="firstHeading">Location</h1>'+
-//     '<div id="bodyContent">'+
-//     '<table>'+'<tr>'+'<td>Name :</td>'+' <td><input type="text" name="name" value={{temp.name}} /></td>'+'</tr>'
-//     +'<tr>'+'<td>Description :</td>'+' <td><textarea style="overflow:hidden"></textarea></td>'+'</tr>'+
-//     '<tr>'+'<td>Address :</td>'+' <td><input type="text" name="name" value="" /></td>'+'</tr>'+'</table>'+
-//     '</div>'+
-//     '</div>'+'</form>';

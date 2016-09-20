@@ -15,7 +15,6 @@
     <link href="{{ URL::asset('css/layout.css')}}" rel="stylesheet" type="text/css"/>
     <link id="style_color" href="{{ URL::asset('css/themes/light.css')}}" rel="stylesheet" type="text/css"/>
     <link href="{{ URL::asset('css/custom.css')}}" rel="stylesheet" type="text/css"/>
-    <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
     <style>
         #map {
             width: 100%;

@@ -1,13 +1,13 @@
 var Login = function() {
 
     var handleLogin = function() {
-
+    // alert('it work');
         $('.login-form').validate({
             errorElement: 'span', //default input error message container
             errorClass: 'help-block', // default input error message class
             focusInvalid: false, // do not focus the last invalid input
             rules: {
-                username: {
+                email: {
                     required: true
                 },
                 password: {
@@ -19,8 +19,8 @@ var Login = function() {
             },
 
             messages: {
-                username: {
-                    required: "Username is required."
+                email: {
+                    required: "email is required."
                 },
                 password: {
                     required: "Password is required."
@@ -29,11 +29,13 @@ var Login = function() {
 
             invalidHandler: function(event, validator) { //display error alert on form submit   
                 $('.alert-danger', $('.login-form')).show();
+                // alert('hiii');
             },
 
             highlight: function(element) { // hightlight error inputs
                 $(element)
                     .closest('.form-group').addClass('has-error'); // set error class to the control group
+                // alert('hiii');
             },
 
             success: function(label) {
@@ -46,7 +48,7 @@ var Login = function() {
             },
 
             submitHandler: function(form) {
-                // form.submit(); // form validation success, call ajax form submit
+                form.submit(); // form validation success, call ajax form submit
             }
         });
 
