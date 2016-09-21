@@ -23,7 +23,6 @@
         var rows_per_page='{{ Config::get('custom.rows_per_page')}}';
     </script>
     <script src="{{ URL::asset('assets/admin/pages/scripts/map.js')}}"></script>
-
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -77,6 +76,7 @@
                     </li>
                     <li></li>
                     <li></li>
+
                     <li class="dropdown dropdown-user dropdown-dark">
                         <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
 							<span class="username username-hide-on-mobile">
@@ -92,6 +92,7 @@
                         </ul>
                     </li>
                     <!-- END USER LOGIN DROPDOWN -->
+
                 </ul>
             </div>
             <!-- END TOP NAVIGATION MENU -->

@@ -156,31 +156,22 @@ var Login = function() {
             ignore: "",
             rules: {
 
-                fullname: {
+                name: {
                     required: true
                 },
                 email: {
                     required: true,
                     email: true
                 },
-                address: {
-                    required: true
-                },
-                city: {
-                    required: true
-                },
-                country: {
-                    required: true
-                },
-
-                username: {
-                    required: true
-                },
                 password: {
                     required: true
                 },
-                rpassword: {
+                password_confirmation: {
                     equalTo: "#register_password"
+                },
+
+                address: {
+                    required: true
                 },
 
                 tnc: {

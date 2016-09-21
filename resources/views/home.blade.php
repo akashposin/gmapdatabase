@@ -40,7 +40,7 @@
                         <a href="javascript:;" class="btn btn-default btn-circle">
                             <i class="fa fa-plus"></i>
 								<span class="hidden-480">
-								New Order </span>
+								New Location </span>
                         </a>
                         <div class="btn-group">
                             <a class="btn btn-default btn-circle" href="javascript:;" data-toggle="dropdown">
@@ -86,6 +86,7 @@
                             </select>
                             <button class="btn btn-sm yellow table-group-action-submit"><i class="fa fa-check"></i> Submit</button>
                         </div>
+                        @if(Auth::check())
                         <table class="table table-striped table-bordered table-hover" id="datatable_ajax">
                             <thead>
                             <tr role="row" class="heading">
@@ -149,6 +150,7 @@
                             <tbody>
                             </tbody>
                         </table>
+                        @endif
                     </div>
                 </div>
             </div>
