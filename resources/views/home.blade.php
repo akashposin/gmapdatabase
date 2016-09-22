@@ -37,39 +37,39 @@
                         <span class="caption-helper">manage records...</span>
                     </div>
                     <div class="actions">
-                        <a href="javascript:;" class="btn btn-default btn-circle">
+                        <a href="{{url("home/newlocation")}}" class="btn btn-danger btn-circle">
                             <i class="fa fa-plus"></i>
 								<span class="hidden-480">
 								New Location </span>
                         </a>
-                        <div class="btn-group">
-                            <a class="btn btn-default btn-circle" href="javascript:;" data-toggle="dropdown">
-                                <i class="fa fa-share"></i>
-									<span class="hidden-480">
-									Tools </span>
-                                <i class="fa fa-angle-down"></i>
-                            </a>
-                            <ul class="dropdown-menu pull-right">
-                                <li>
-                                    <a href="javascript:;">
-                                        Export to Excel </a>
-                                </li>
-                                <li>
-                                    <a href="javascript:;">
-                                        Export to CSV </a>
-                                </li>
-                                <li>
-                                    <a href="javascript:;">
-                                        Export to XML </a>
-                                </li>
-                                <li class="divider">
-                                </li>
-                                <li>
-                                    <a href="javascript:;">
-                                        Print Invoices </a>
-                                </li>
-                            </ul>
-                        </div>
+                        {{--<div class="btn-group">--}}
+                            {{--<a class="btn btn-default btn-circle" href="javascript:;" data-toggle="dropdown">--}}
+                                {{--<i class="fa fa-share"></i>--}}
+									{{--<span class="hidden-480">--}}
+									{{--Tools </span>--}}
+                                {{--<i class="fa fa-angle-down"></i>--}}
+                            {{--</a>--}}
+                            {{--<ul class="dropdown-menu pull-right">--}}
+                                {{--<li>--}}
+                                    {{--<a href="javascript:;">--}}
+                                        {{--Export to Excel </a>--}}
+                                {{--</li>--}}
+                                {{--<li>--}}
+                                    {{--<a href="javascript:;">--}}
+                                        {{--Export to CSV </a>--}}
+                                {{--</li>--}}
+                                {{--<li>--}}
+                                    {{--<a href="javascript:;">--}}
+                                        {{--Export to XML </a>--}}
+                                {{--</li>--}}
+                                {{--<li class="divider">--}}
+                                {{--</li>--}}
+                                {{--<li>--}}
+                                    {{--<a href="javascript:;">--}}
+                                        {{--Print Invoices </a>--}}
+                                {{--</li>--}}
+                            {{--</ul>--}}
+                        {{--</div>--}}
                     </div>
                 </div>
                 <div class="portlet-body">

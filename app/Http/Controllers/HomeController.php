@@ -6,6 +6,8 @@ use App\Http\Requests;
 use Illuminate\Http\Request;
 use DB;
 use Carbon\Carbon;
+use File;
+use Illuminate\Support\Facades\Input;
 class HomeController extends Controller
 {
     /**
@@ -187,4 +189,28 @@ class HomeController extends Controller
 
         echo json_encode($data);
        }
+
+    public function newlocation(){
+        return view('newlocation');
+    }
+
+    public function upload(Request $request){
+        /*making directory with base_path*/
+        $input=$request->all();
+        $path=base_path()."/public/upload";
+        File::makeDirectory($path, $mode = 0777, true, true);
+        if (Input::hasFile('file')) {
+            $fileName = $request->file('file')->getClientOriginalName();
+            $request->file('file')->move($path, $fileName);
+            $data=array('name'=>$input['name'],'description'=>$input['description'],'address'=>$input['address'],'lat'=>$input['latitude'],'lng'=>$input['longitude'],'image'=>$fileName);
+            $ins=DB::table('location')->insert($data);
+         if($ins){
+             return view('newlocation');
+                }
+
+
+        }
+
+
+    }
 }

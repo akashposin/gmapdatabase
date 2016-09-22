@@ -19,6 +19,7 @@ class CreateLocationTable extends Migration
             $table->string('address');
             $table->float('lat');
             $table->float('lng');
+            $table->string('image');
             $table->timestamps();
         });
     }
