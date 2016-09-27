@@ -112,6 +112,9 @@
                                     LONGITUDE
                                 </th>
                                 <th width="10%">
+                                    Picture
+                                </th>
+                                <th width="10%">
                                     Actions
                                 </th>
                             </tr>
@@ -137,6 +140,10 @@
                                 </td>
                                 <td>
                                     <input type="text" class="form-control form-filter input-sm" name="lng">
+
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control form-filter input-sm" name="image">
 
                                 </td>
                                 <td>

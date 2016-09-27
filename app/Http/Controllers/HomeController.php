@@ -8,6 +8,8 @@ use DB;
 use Carbon\Carbon;
 use File;
 use Illuminate\Support\Facades\Input;
+use Session;
+use App\Http\Controllers\redirect;
 class HomeController extends Controller
 {
     /**
@@ -40,7 +42,8 @@ class HomeController extends Controller
             "description",
             "address",
             "lat",
-            "lng"
+            "lng",
+            "image"
         );
 
         // local variables for POST variables for searching columns
@@ -50,7 +53,7 @@ class HomeController extends Controller
         $address="";
         $lat="";
         $lng="";
-
+        $image="";
         // Assigning POST values to local variables
 
         if($request->has('id') && $request->get('id')!=null)
@@ -71,6 +74,8 @@ class HomeController extends Controller
         if($request->has('lng') && $request->get('lng')!=null)
             $lng=trim($request->get('lng'));
 
+        if($request->has('image') && $request->get('image')!=null)
+            $image=trim($request->get('image'));
 
         $iDisplayLength = intval($request->get('length'));  // getting rows per page value for paging
         $iDisplayStart = intval($request->get('start'));    // getting offset value for paging
@@ -114,6 +119,8 @@ class HomeController extends Controller
         if($lng!=null)
             $query->where('lng','=',$lng);
 
+        if($image!=null)
+            $query->where('image','=',$image);
 
         //$query->groupBy('users.id');
         //if($advertiser_address!=null)
@@ -163,6 +170,7 @@ class HomeController extends Controller
             $records['data'][$i][]=$advertiser->address;
             $records['data'][$i][]=$advertiser->lat;
             $records['data'][$i][]=$advertiser->lng;
+            $records['data'][$i][]='<img style="width: 80px;" src=/shahbaz/laravel/googlemap/public/upload/'.$advertiser->image.'>';
             $records['data'][$i][]='
                 <div class="btn-group" role="group">
                     <a href="'.url('/edit', [$advertiser->id]).'" class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i></a>
@@ -205,8 +213,11 @@ class HomeController extends Controller
             $data=array('name'=>$input['name'],'description'=>$input['description'],'address'=>$input['address'],'lat'=>$input['latitude'],'lng'=>$input['longitude'],'image'=>$fileName);
             $ins=DB::table('location')->insert($data);
          if($ins){
-             return view('newlocation');
-                }
+//             \session::flash('flash_message','Inserted Succesfully');
+             return redirect('home/newlocation')->with('flash_message', 'Data inserted Succesfully !!');
+                }else{
+             return redirect('home/newlocation')->with('flash_err_message', 'Data not inserted Succesfully !!');
+         }
 
 
         }

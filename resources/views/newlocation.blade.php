@@ -34,6 +34,12 @@
             <div class="portlet-title">
                 <div class="caption">
                     <i class="fa fa-gift"></i>Add New-Location
+                    @if(Session::has('flash_message'))
+                        <div class="alert alert-success"><span class="glyphicon glyphicon-ok"></span><em> {!! session('flash_message') !!}</em></div>
+                    @endif
+                    @if(Session::has('flash_err_message'))
+                        <div class="alert alert-success"><span class="glyphicon glyphicon-ok"></span><em> {!! session('flash_err_message') !!}</em></div>
+                    @endif
                 </div>
                 <div class="tools">
                     <a href="javascript:;" class="collapse">

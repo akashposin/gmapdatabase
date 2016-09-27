@@ -48,14 +48,13 @@ function getlocations() {
                 google.maps.event.addListener(marker, 'click', function() {
                     // console.log(temp.name);
 
-                        // console.log(temp.name);
+                        // console.log(temp.name);<img src="uploads/photos/{{ $photo->filename }}">
                         // console.log(key);
                         infowindow.setContent('<b><h3 style="text-align: center; color: blueviolet">'+this.info.name+'</h3></b>'
+                            +'<b style="color: orangered">Image :</b><img style="height: 50px;" src=/shahbaz/laravel/googlemap/public/upload/'+this.info.image+'><br>'
                             +'<b style="color: orangered">Name :</b> '+this.info.name+'<br>'
                             +'<b style="color: orangered">Description :</b> '+this.info.description+'<br>'
-                            +'<b style="color: orangered">Address :</b>'+this.info.address+'<br>'
-                            +'<b style="color: orangered">Latitude :</b>'+this.info.lat+'<br>'
-                            +'<b style="color: orangered">Longitude :</b>'+this.info.lng);
+                            +'<b style="color: orangered">Address :</b>'+this.info.address);
                         infowindow.open(map, this);
 
                 });
