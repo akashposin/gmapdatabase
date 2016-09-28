@@ -10,6 +10,7 @@ use File;
 use Illuminate\Support\Facades\Input;
 use Session;
 use App\Http\Controllers\redirect;
+use App\location;
 class HomeController extends Controller
 {
     /**
@@ -202,26 +203,67 @@ class HomeController extends Controller
         return view('newlocation');
     }
 
-    public function upload(Request $request){
+    public function edit($id)
+    {
+//      echo $id;
+//      $edit_data=DB::table('location')->where('id',$id)->get();
+        $edit_data = location::where('id',$id)->get();
+        return view('edit',compact('edit_data',$edit_data));
+    }
+
+    public function update(Request $request)
+    { /*making directory with base_path*/
+      $input=$request->all();
+      $path=base_path()."/public/upload";
+      File::makeDirectory($path, $mode = 0777, true, true);
+//      if (Input::hasFile('file'))
+//      {
+           $fileName = $request->file('file')->getClientOriginalName();
+           $request->file('file')->move($path, $fileName);
+           $data=array('name'=>$input['name'],'description'=>$input['description'],'address'=>$input['address'],'lat'=>$input['latitude'],'lng'=>$input['longitude'],'image'=>$fileName);
+           print_r($data); die();
+           $upd=DB::table('location')->where('id',$input['id'])->update($data);
+           if($upd)
+           {
+//             \session::flash('flash_message','Inserted Succesfully');
+               return redirect('/home');
+           }else
+           {
+               return redirect('/home');
+           }
+//      }
+
+    }
+
+
+    public function upload(Request $request)
+    {
+        $location = new location();
         /*making directory with base_path*/
         $input=$request->all();
         $path=base_path()."/public/upload";
         File::makeDirectory($path, $mode = 0777, true, true);
-        if (Input::hasFile('file')) {
+        if (Input::hasFile('file'))
+        {
             $fileName = $request->file('file')->getClientOriginalName();
             $request->file('file')->move($path, $fileName);
-            $data=array('name'=>$input['name'],'description'=>$input['description'],'address'=>$input['address'],'lat'=>$input['latitude'],'lng'=>$input['longitude'],'image'=>$fileName);
-            $ins=DB::table('location')->insert($data);
-         if($ins){
-//             \session::flash('flash_message','Inserted Succesfully');
-             return redirect('home/newlocation')->with('flash_message', 'Data inserted Succesfully !!');
-                }else{
-             return redirect('home/newlocation')->with('flash_err_message', 'Data not inserted Succesfully !!');
-         }
 
+            $location->name = $input['name'];
+            $location->description = $input['description'];
+            $location->address = $input['address'];
+            $location->lat = $input['latitude'];
+            $location->lng = $input['longitude'];
+            $location->image = $fileName;
 
+            if($location->save())
+            {
+//              \session::flash('flash_message','Inserted Succesfully');
+                return redirect('home/newlocation')->with('flash_message', 'Data inserted Succesfully !!');
+            }else
+            {
+                 return redirect('home/newlocation')->with('flash_err_message', 'Data not inserted Succesfully !!');
+            }
         }
-
-
     }
+
 }

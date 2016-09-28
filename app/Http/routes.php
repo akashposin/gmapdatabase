@@ -22,3 +22,5 @@ Route::post('home/show', 'HomeController@show');
 Route::get('home/googlemap', 'HomeController@googlemap');
 Route::get('home/newlocation', 'HomeController@newlocation');
 Route::post('home/upload', 'HomeController@upload');
+Route::get('edit/{id}', 'HomeController@edit');
+Route::post('home/update','HomeController@update');
