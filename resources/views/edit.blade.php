@@ -55,7 +55,7 @@
                         <div class="portlet-body form">
                         @foreach($edit_data as $value)
                             <!-- BEGIN FORM-->
-                            <form action="{{ url('home/update') }}" class="form-horizontal" method="post" enctype="multipart/form-data">
+                            <form action="{{url('home/update')}}/{{$value->id}}" class="form-horizontal" method="post" enctype="multipart/form-data">
                                 <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                                 <input type="hidden" name="id" value="{{ $value->id }}" class="form-control">
                                 <div class="form-body">

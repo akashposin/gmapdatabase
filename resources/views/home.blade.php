@@ -35,6 +35,14 @@
                         <i class="fa fa-gift font-green-sharp"></i>
                         <span class="caption-subject font-green-sharp bold uppercase">Record Listing</span>
                         <span class="caption-helper">manage records...</span>
+                        <span class="caption-helper">
+                            @if(Session::has('flash_message'))
+                            <div class="alert alert-success"><span class="glyphicon glyphicon-ok"></span><em> {!! session('flash_message') !!}</em></div>
+                            @endif
+                            @if(Session::has('flash_err_message'))
+                            <div class="alert alert-success"><span class="glyphicon glyphicon-ok"></span><em> {!! session('flash_err_message') !!}</em></div>
+                            @endif
+                        </span>
                     </div>
                     <div class="actions">
                         <a href="{{url("home/newlocation")}}" class="btn btn-danger btn-circle">

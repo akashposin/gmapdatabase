@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests;
+use Faker\Provider\Image;
 use Illuminate\Http\Request;
 use DB;
 use Carbon\Carbon;
@@ -211,27 +212,35 @@ class HomeController extends Controller
         return view('edit',compact('edit_data',$edit_data));
     }
 
-    public function update(Request $request)
-    { /*making directory with base_path*/
-      $input=$request->all();
-      $path=base_path()."/public/upload";
-      File::makeDirectory($path, $mode = 0777, true, true);
-//      if (Input::hasFile('file'))
-//      {
-           $fileName = $request->file('file')->getClientOriginalName();
-           $request->file('file')->move($path, $fileName);
-           $data=array('name'=>$input['name'],'description'=>$input['description'],'address'=>$input['address'],'lat'=>$input['latitude'],'lng'=>$input['longitude'],'image'=>$fileName);
-           print_r($data); die();
-           $upd=DB::table('location')->where('id',$input['id'])->update($data);
-           if($upd)
-           {
-//             \session::flash('flash_message','Inserted Succesfully');
-               return redirect('/home');
-           }else
-           {
-               return redirect('/home');
-           }
-//      }
+    public function update(Request $request, $id)
+    {
+        $location = new location();
+        $input=$request->all();
+
+        $location = location::find($id);
+        $location->name = $input['name'];
+        $location->description = $input['description'];
+        $location->address = $input['address'];
+        $location->lat = $input['latitude'];
+        $location->lng = $input['longitude'];
+
+        $path=base_path()."/public/upload";
+        File::makeDirectory($path, $mode = 0777, true, true);
+        if (Input::hasFile('file'))
+        {
+            $fileName = $request->file('file')->getClientOriginalName();
+            $request->file('file')->move($path, $fileName);
+            $location->image = $fileName;
+
+        }
+        if($location->update())
+            {
+                return redirect('/home')->with('flash_message', 'Data updated Succesfully !!');
+            }else
+            {
+                return redirect('/home')->with('flash_err_message', 'Data not updated Succesfully !!');
+            }
+
 
     }
 
@@ -245,7 +254,15 @@ class HomeController extends Controller
         File::makeDirectory($path, $mode = 0777, true, true);
         if (Input::hasFile('file'))
         {
-            $fileName = $request->file('file')->getClientOriginalName();
+            $fileName = $request->file('file');
+            $realname = $fileName->getClientOriginalName();
+            $input = md5($realname).time().'.'.$fileName->getClientOriginalExtension();
+            $destinationpath = public_path('/upload/thumbs/');
+            $img = location::make($fileName->getRealPath());
+
+            $img->resize(100,100,function($constraint){
+                $constraint->aspectRatio();
+            })->save($destinationpath.'/'.$input);
             $request->file('file')->move($path, $fileName);
 
             $location->name = $input['name'];
@@ -266,4 +283,35 @@ class HomeController extends Controller
         }
     }
 
+//    public function upload(Request $request)
+//    {
+//        $location = new location();
+//        /*making directory with base_path*/
+//        $input=$request->all();
+//        $path=base_path()."/public/upload";
+//        File::makeDirectory($path, $mode = 0777, true, true);
+//        if (Input::hasFile('file'))
+//        {
+//            $fileName = $request->file('file')->getClientOriginalName();
+//            $request->file('file')->move($path, $fileName);
+//
+//            $location->name = $input['name'];
+//            $location->description = $input['description'];
+//            $location->address = $input['address'];
+//            $location->lat = $input['latitude'];
+//            $location->lng = $input['longitude'];
+//            $location->image = $fileName;
+//
+//            if($location->save())
+//            {
+////              \session::flash('flash_message','Inserted Succesfully');
+//                return redirect('home/newlocation')->with('flash_message', 'Data inserted Succesfully !!');
+//            }else
+//            {
+//                return redirect('home/newlocation')->with('flash_err_message', 'Data not inserted Succesfully !!');
+//            }
+//        }
+//    }
+//How to upload edit delete display image with thumbnails in laravel 5
+//https://www.youtube.com/watch?v=QsP0lSSXTc8
 }
