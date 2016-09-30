@@ -90,7 +90,7 @@
                         <div class="form-group">
                             <label class="col-md-3 control-label">Image</label>
                             <div class="col-md-4">
-                                <input type="file" name="file" id="file">
+                                <input type="file" name="image" id="image">
                             </div>
                         </div>
                     </div>

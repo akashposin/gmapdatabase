@@ -24,3 +24,4 @@ Route::get('home/newlocation', 'HomeController@newlocation');
 Route::post('home/upload', 'HomeController@upload');
 Route::get('edit/{id}', 'HomeController@edit');
 Route::post('home/update/{id}','HomeController@update');
+Route::get('delete/{id}', 'HomeController@delete');

@@ -1,9 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Image;
 use App\Http\Requests;
-use Faker\Provider\Image;
 use Illuminate\Http\Request;
 use DB;
 use Carbon\Carbon;
@@ -204,6 +203,7 @@ class HomeController extends Controller
         return view('newlocation');
     }
 
+    
     public function edit($id)
     {
 //      echo $id;
@@ -212,6 +212,8 @@ class HomeController extends Controller
         return view('edit',compact('edit_data',$edit_data));
     }
 
+
+// function for update data
     public function update(Request $request, $id)
     {
         $location = new location();
@@ -245,44 +247,50 @@ class HomeController extends Controller
     }
 
 
+// function for upload an image and data
     public function upload(Request $request)
     {
-        $location = new location();
-        /*making directory with base_path*/
-        $input=$request->all();
-        $path=base_path()."/public/upload";
-        File::makeDirectory($path, $mode = 0777, true, true);
-        if (Input::hasFile('file'))
+        $m = new location();
+        $post = $request->all();
+        $this->validate($request, [
+            'name' => 'required',
+            'description' => 'required',
+            'address' => 'required',
+            'latitude' => 'required',
+            'longitude' => 'required',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+        $image = $request->file('image');
+        $realname = $image->getClientOriginalName();
+        $input = md5($realname) . time() . '.' . $image->getClientOriginalExtension();
+        $destinationpath = public_path('/upload/thumbs/');
+        $img = Image::make($image->getRealPath());
+
+        $img->resize(400, 400, function ($constraint) {
+            $constraint->aspectRatio();
+        })->save($destinationpath . '/' . $input);
+        $destinationpath = public_path('/upload/');
+        $image->move($destinationpath, $input);
+
+        $i = $m->insert($post['name'], $post['description'], $post['address'], $post['latitude'], $post['longitude'], $input);
+
+        if ($i > 0)
         {
-            $fileName = $request->file('file');
-            $realname = $fileName->getClientOriginalName();
-            $input = md5($realname).time().'.'.$fileName->getClientOriginalExtension();
-            $destinationpath = public_path('/upload/thumbs/');
-            $img = location::make($fileName->getRealPath());
-
-            $img->resize(100,100,function($constraint){
-                $constraint->aspectRatio();
-            })->save($destinationpath.'/'.$input);
-            $request->file('file')->move($path, $fileName);
-
-            $location->name = $input['name'];
-            $location->description = $input['description'];
-            $location->address = $input['address'];
-            $location->lat = $input['latitude'];
-            $location->lng = $input['longitude'];
-            $location->image = $fileName;
-
-            if($location->save())
-            {
-//              \session::flash('flash_message','Inserted Succesfully');
-                return redirect('home/newlocation')->with('flash_message', 'Data inserted Succesfully !!');
-            }else
-            {
-                 return redirect('home/newlocation')->with('flash_err_message', 'Data not inserted Succesfully !!');
-            }
+            return redirect('home/newlocation')->with('flash_message', 'Data inserted Succesfully !!');
         }
     }
 
+
+// function for delete data
+    public function delete($id)
+    {
+        $m = new location();
+        $i = $m->delete_row($id);
+        if ($i > 0)
+        {
+            return redirect('/home')->with('flash_message', 'Data deleted Succesfully !!');
+        }
+    }
 //    public function upload(Request $request)
 //    {
 //        $location = new location();
