@@ -175,7 +175,7 @@ class HomeController extends Controller
             $records['data'][$i][]='
                 <div class="btn-group" role="group">
                     <a href="'.url('/edit', [$advertiser->id]).'" class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i></a>
-                    <a href="'.url('/delete', [$advertiser->id]).'" class="btn btn-sm btn-danger"><i class="fa fa-times"></i></a>
+                    <a href="javascript:void(0);" class="btn btn-sm btn-danger" OnClick="myFunction('.url('/delete', [$advertiser->id]).')"><i class="fa fa-times"></i></a>
                 </div>';
             $i++;
         }
@@ -280,16 +280,22 @@ class HomeController extends Controller
         }
     }
 
+    public function myFunction($id)
+    {
+        alert("hiii");
+    }
+
 
 // function for delete data
     public function delete($id)
     {
-        $m = new location();
-        $i = $m->delete_row($id);
-        if ($i > 0)
-        {
-            return redirect('/home')->with('flash_message', 'Data deleted Succesfully !!');
-        }
+        confirm("Press a button!");
+//        $m = new location();
+//        $i = $m->delete_row($id);
+//        if ($i > 0)
+//        {
+//            return redirect('/home')->with('flash_message', 'Data deleted Succesfully !!');
+//        }
     }
 //    public function upload(Request $request)
 //    {
